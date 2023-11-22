@@ -9,12 +9,13 @@ This project embarks on:
 - Utilizing the Prophet model for accurate forecasting of Twitter's stock prices.
 
 ## Table of Contents
-1. Introduction
-2. Data Loading and Preliminary Analysis
-3. Exploratory Data Analysis
-4. Model Building with Prophet
-5. Model Evaluation and Comparison
-6. Conclusion and Future Work
+1. Introduction 
+2. Data Loading and Preliminary Analysis 
+3. Exploratory Data Analysis 
+4. Model Building with Prophet 
+5. Mathematical Framework of the Prophet Model 
+6. Model Evaluation and Comparison 
+7. Conclusion and Future Work
 
 ## 1. Introduction
 In this project, we aim to forecast Twitter stock prices using the Prophet library. The focus is not only on building a predictive model but also on understanding the underlying data through extensive analysis and interactive visualization techniques.
@@ -69,6 +70,49 @@ After thorough exploratory analysis, we progress to the core of our project: bui
 
 ### Insights from Model Building:
 This phase allows us to develop a nuanced understanding of Twitter's stock price dynamics and how well they can be captured using Prophet. The process of model tuning and refinement helps us in crafting a forecasting tool that is not only accurate but also interpretable.
+
+## Mathematical Framework of the Prophet Model
+
+The Prophet model employs an additive time series forecasting model, which can be expressed as:
+
+$$y(t) = g(t) + s(t) + h(t) + \epsilon_t$$
+
+Where:
+- $y(t)$ is the predicted value.
+- $g(t)$ represents the trend component, modeling non-periodic changes.
+- $s(t)$ denotes the seasonality component, capturing periodic changes (daily, weekly, yearly).
+- $h(t)$ encapsulates the effects of holidays or events.
+- $\epsilon_t$ is the error term, accounting for any idiosyncratic changes not accommodated by the model.
+
+### Trend Component - $g(t)$
+The trend, $g(t)$, is modeled using a piecewise linear or logistic growth curve, depending on the nature of the data:
+
+For a linear growth model:
+$$g(t) = k \cdot t + m$$
+
+For a logistic growth model:
+$$g(t) = \frac{C}{1 + e^{-k(t - m)}}$$
+
+Where:
+- $C$ is the carrying capacity (maximum achievable value).
+- $k$ is the growth rate.
+- $m$ is an offset parameter.
+
+### Seasonality Component - $s(t)$
+Seasonality, $s(t)$, is modeled using Fourier series to provide a flexible representation of periodic effects:
+
+$$s(t) = \sum_{n=1}^{N} \left( a_n \cos\left(\frac{2\pi nt}{P}\right) + b_n \sin\left(\frac{2\pi nt}{P}\right) \right)$$
+
+Where:
+- $N$ is the number of Fourier terms.
+- $P$ is the period (e.g., 365.25 for yearly seasonality).
+- $a_n$ and $b_n$ are coefficients to be fitted.
+
+### Holiday Component - $h(t)$
+The holiday component, $h(t)$, accounts for predictable irregularities on specific dates, like holidays or events.
+
+### Conclusion
+These mathematical formulations underpin the Prophet model, enabling it to adeptly handle complex time series data with various intrinsic patterns and external influences.
 
 ## 5. Model Evaluation and Comparison
 
